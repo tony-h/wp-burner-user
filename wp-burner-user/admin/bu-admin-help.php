@@ -1,6 +1,6 @@
 <?php
 /*
- * Contains help documents for how to use the WP Create User plugin
+ * Contains help documents for how to use the WP Burner User plugin
  * 
  * LICENSE: GNU General Public License (GPL) version 2
  *
@@ -15,5 +15,5 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 ?>
 
 <div class="wrap">
-	<h2>WP Create User - Help</h2>
+	<h2>WP Burner User - Help</h2>
 </div>

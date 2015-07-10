@@ -1,6 +1,6 @@
 <?php
 /*
- * Gets a CSV file from Google Sheets 
+ * Add a new burner user to Wordpress
  *	
  * LICENSE: GNU General Public License (GPL) version 2
  *
@@ -12,74 +12,146 @@
 # Wordpress security recommendation
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-global $cu_message;
-
 ?>
 
 <div class="wrap">
-	<h2>WP Create User</h2>
-	<p>This tab allows you to create a WordPress user with an optional email address.</p>
-	<h3>Fields</h3>
+	<h2>Create Burner User</h2>
+	<p>Create a brand new user as a <b>subscriber</b> and add them to this site without the typical WordPress requirements. By default, the user is generated from anonymous data.</p>
+	<h3>Form Information</h3>
+	<p>All fields are optional.</p>
 	<ul>
-		<li><b>Username:</b> This field is required as this is the login name.</li>
-		<li><b>Password:</b> If this field is blank, and random password will be generated (recommended)</li>
-		<li><b>Email:</b> This value is used if present, otherwise no email is associated with the new user</li>
-	</ul>
+		<li><b>Username:</b> If blank, and random string of characters becomes the user name</li>
+		<li><b>E-mail:</b> If blank, the email becomes <i>username@example.com</i> </li>
+		<li><b>First Name:</b> If blank, no first name is assigned </li>
+		<li><b>Last Name:</b> If blank, no last name is assigned </li>
+		<li><b>Password:</b> If blank, a random password is assigned </li>
+	</ul>	
 	<hr />
-	<h3>Add User</h3>
-	<form name="get_data" method="post" action="<?php echo CU_Functions::get_server_path_request(); ?>">
+
+<?php
+
+# Scan for POST values
+$form_submit = BU_Functions::get_POST_string( 'new_user_submit' );
+
+# If the form has been submitted, process the request
+if( $form_submit == 'Y' ) {
+	bu_add_burner_user();
+}
+
+?>
+	
+	<h3>Add Burner User</h3>
+	<form name="createuser_form" method="post" action="<?php echo BU_Functions::get_server_path_request(); ?>">
 		<input type="hidden" name="new_user_submit" value="Y">
-		<label><b>Username</b> (required) <input type="text" name="username" /><br />
-		<label><b>Password</b> (optional) <input type="text" name="password" /> <br />
-		<label><b>Email</b> (optional) <input type="text" name="email" />
-		<p class="submit label">
-			<input type="submit" name="Submit" value="Create User" /> 
-		</p>
-	</form>
+		<table class="form-table">
+			<tbody><tr class="form-field">
+				<th scope="row"><label for="user_login">Username <span class="description"></span></label></th>
+				<td><input name="user_login" type="text" id="user_login" value="" aria-required="true"></td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row"><label for="email">E-mail <span class="description"></span></label></th>
+				<td><input name="email" type="email" id="email" value=""></td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row"><label for="first_name">First Name </label></th>
+				<td><input name="first_name" type="text" id="first_name" value=""></td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row"><label for="last_name">Last Name </label></th>
+				<td><input name="last_name" type="text" id="last_name" value=""></td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row"><label for="pass1">Password <span class="description"></span></label></th>
+				<td>
+					<input name="password" type="password" id="password" value="" autocomplete="off">
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<p class="submit"><input type="submit" name="createuser" id="createusersub" class="button button-primary" value="Create Burner User"></p>
+		</form>
 </div>
 <hr />
 
 <?php
 
-# Scan for POST values
-$form_submit = CU_Functions::get_POST_string('new_user_submit');
+/**
+  * Adds a user to WordPress. If POST values are all blank, auto generates a user
+  *
+  * @since 0.1.0
+  *
+  */
+function bu_add_burner_user() {
 
-# If the form has been submitted, process the request
-if($form_submit == 'Y') {
+	global $bu_message;
 
-	$username = trim(CU_Functions::get_POST_string('username'));
-	$password = trim(CU_Functions::get_POST_string('password'));
-	$email = trim(CU_Functions::get_POST_string('email'));
+	$username = trim (BU_Functions::get_POST_string( 'user_login' ) );
+	$email = trim (BU_Functions::get_POST_string( 'email' ));
+	$password = trim (BU_Functions::get_POST_string( 'password' ) );
+	$first_name = trim (BU_Functions::get_POST_string( 'first_name' ) );
+	$last_name = trim (BU_Functions::get_POST_string( 'last_name' ) );
 	
-	echo "<hr />";
-	
-	# Check for blank user
-	if ($username == '') {
-		$message = "Username was blank.";
-		$cu_message->print_message($message, $cu_message->error);
-		return;
+	# If no user, generate a random user name
+	if ( $username == '' ) {
+		$username = wp_generate_password( $length=12, $include_standard_special_chars=false );
 	}
 	
+	# If email address, use username@example.com
+	if ( $email == '' ) {
+		$email = $username . '@example.com';
+	}
+	
+	#Verify the user doesn't already exist
 	$user_id = username_exists( $username );
-	if ( !$user_id and email_exists($email) == false ) {
+
+	# If user data is unique, add it
+	if ( !$user_id and email_exists( $email ) == false ) {
 
 		# If password is blank, create a random password
 		if ($password == '') {
 			$password = wp_generate_password( $length=12, $include_standard_special_chars=false );
 		}
 
-		# Create the user and get the ID
+		# Create the user, get the ID, and update the profile with user data
 		$user_id = wp_create_user( $username, $password, $email );
+		bu_modify_burner_profile( $user_id, $first_name, $last_name );
 		
 		# Issue the message
-		$message = "Successfully created user '$username'. Password: $password";
-		$cu_message->print_message($message, $cu_message->success);
+		$message = __( "Successfully created user '$username'. Password: $password" );
+		$bu_message->print_message( $message, $bu_message->success );
 		
 	} else {
 		# User already exists. Issue message.
-		$message = __("User '$username' already exists.");
-		$cu_message->print_message($message, $cu_message->warning);
+		$message = __( "User '$username' already exists." );
+		$bu_message->print_message( $message, $bu_message->warning );
 	}
+}
+
+ 
+/**
+  * Adds the first and last name to the profile
+  *
+  * @since 0.1.0
+  * 
+  * @param int $user_id id of the user
+  * @param string $first_name first name of the user
+  * @param string $last_name last name of the user
+  *
+  */
+function bu_modify_burner_profile( $user_id, $first_name, $last_name ) {
+
+	global $bu_message;
+
+	$user_id = wp_update_user( array( 	'ID' => $user_id, 
+										'first_name' => $first_name, 
+										'last_name' => $last_name ) );
+
+	if ( is_wp_error( $user_id ) ) {
+		$message = __("Oops...something went wrong adding the first and last 
+					  names. Please use the users settings panel to add this 
+					  user information.");
+		$bu_message->print_message($message, $bu_message->error);
+	} 
 }
 
 ?>

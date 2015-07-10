@@ -1,6 +1,6 @@
 <?php
 /*
- * General functions or utilities for WP Create User
+ * General functions or utilities for WP Burner User
  *	
  * LICENSE: GNU General Public License (GPL) version 2
  *
@@ -13,12 +13,12 @@
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 /**
- * CU_Functions contains commonly used static functions 
+ * BU_Functions contains commonly used static functions 
  *
  * @since 0.1.0
  *
  */
- Class CU_Functions {
+ Class BU_Functions {
 
 	/**
 	 * Get the variable equivalent to $_SERVER['REQUEST_URI']. This provides a single
@@ -91,7 +91,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 		if (isset($_POST[$name]) && count($_POST[$name]) > 0) {
 		
 			# Sanitize the POST values before using them
-			$post_array =  CU_Functions::sanitize_array_values($_POST[$name]);
+			$post_array =  BU_Functions::sanitize_array_values($_POST[$name]);
 		}
 
 		return $post_array;

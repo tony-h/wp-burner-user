@@ -14,11 +14,11 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 /*
   Example of class use: 
- 	$cu_message = new CU_Message();
- 	$cu_message->print($message, $cu_message->information);
+ 	$bu_message = new BU_Message();
+ 	$bu_message->print($message, $bu_message->information);
 -OR-
- 	global $cu_message;
- 	$cu_message->print($message, $cu_message->information);
+ 	global $bu_message;
+ 	$bu_message->print($message, $bu_message->information);
 */
 
 /**
@@ -27,15 +27,8 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
  * @since 0.1.0
  *
  */
-Class CU_Message {
+Class BU_Message {
 
-	/**
-	 * The text for the shortcode message
-	 *
-	 * @since 0.1.0
-	 * @var string $shortcode
-	 */
-	public $shortcode = "shortcode";
 	/**
 	 * The text for the information message
 	 *
@@ -85,6 +78,6 @@ Class CU_Message {
 	}
 }
 	# The global instance
-	$cu_message = new CU_Message();
+	$bu_message = new BU_Message();
 
 ?>

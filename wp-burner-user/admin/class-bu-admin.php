@@ -1,6 +1,6 @@
 <?php
 /*
- * The CU_Admin class which controls the WP Create User admin code
+ * The BU_Admin class which controls the WP Burner User admin code
  *	
  * LICENSE: GNU General Public License (GPL) version 2
  *
@@ -13,10 +13,10 @@
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 // Initialize the plugin
-add_action( 'plugins_loaded', create_function( '', '$CU_Admin = new CU_Admin;' ) );
+add_action( 'plugins_loaded', create_function( '', '$BU_Admin = new BU_Admin;' ) );
 
 # PHP includes go here. Any HTML includes go in function plugin_options_page()
-include(CU_LIB_DIR . '/class-cu-message.php');
+include(BU_LIB_DIR . '/class-bu-message.php');
 
 /*
  * The main admin class.  
@@ -25,7 +25,7 @@ include(CU_LIB_DIR . '/class-cu-message.php');
 	
 	To create a new tab: 
 		1) Create a new key and assign it to the value of the PHP file: 
-			private $abc_admin_key = 'cu-admin-abc'
+			private $abc_admin_key = 'bu-admin-abc'
 		2) Duplicate the function that reads: function register_abc_admin()
 		3) Rename it and change data
 		4) Duplicate the add_action function call in the constructor (this determines the tab order)
@@ -34,13 +34,13 @@ include(CU_LIB_DIR . '/class-cu-message.php');
  * @since 0.1.0
  *
  */
-class CU_Admin {
+class BU_Admin {
 	
 	# Keys used for the tab data and settings
-	private $plugin_label = 'WP Create User';
+	private $plugin_label = 'WP Burner User';
 	private $plugin_url_slug = '';
-	private $create_user_admin_key = 'cu-admin-create-user';
-	private $help_admin_key = 'cu-admin-help';
+	private $create_user_admin_key = 'bu-admin-create-user';
+	private $help_admin_key = 'bu-admin-help';
 	private $plugin_settings_tabs = array();
 	
 	/*
@@ -117,7 +117,7 @@ class CU_Admin {
 		require_once $tab . '.php';
 
 		#--- This is where any common non-php includes for the admin code goes ---#
-		include(CU_ADMIN_DIR . '/admin-styles.css');
+		include(BU_ADMIN_DIR . '/admin-styles.css');
 	}
 	
 	/*
@@ -165,7 +165,7 @@ EOD;
      */
 	private function get_current_tab() {
 	
-		$tab = CU_Functions::get_GET_string('tab');
+		$tab = BU_Functions::get_GET_string('tab');
 		
 		# If no tab is set, use the default tab
 		if ($tab == "") {

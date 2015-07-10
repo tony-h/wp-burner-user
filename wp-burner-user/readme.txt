@@ -21,9 +21,27 @@ Depending on the circumstances, one might want to create anonymous accounts for 
 * The new user is created as a subscriber
 
 == Installation ==
-1. Download the plugin from https://dev.tonyhetrick.com/wp_burner_user.zip
+1. Download the plugin from https://dev.tonyhetrick.com/wp-burner-user-files/wp-burner-user.zip
 2. Upload the ZIP file through the *Plugins > Add New > Upload* screen in your WordPress dashboard
 3. Activate the plugin through the *Plugins* menu in WordPress
+
+== Screenshots ==
+1. [Primary WP Burner User admin panel] (https://dev.tonyhetrick.com/wp-burner-user-files/screenshot-1.png)
+2. [New burner user notification] (https://dev.tonyhetrick.com/wp-burner-user-files/screenshot-2.png)
+3. [New burner user added to the user list] (https://dev.tonyhetrick.com/wp-burner-user-files/screenshot-3.png)
+
+== Frequently Asked Questions ==
+**What happens if I don't enter any user data?**
+
+The plugin will generate a random user name, email address, and password. For example:
+
+* Username: YdCqTFLbSm4H
+* E-mail: YdCqTFLbSm4H@example.com
+* Password: yv4m3JuJbnVJ
+
+**Can I still enter user data?**
+
+Yes, you can still enter the user's data using your own values.
 
 == Changelog ==
 = 0.1.0 =

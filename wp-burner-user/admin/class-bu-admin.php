@@ -117,7 +117,7 @@ class BU_Admin {
 		require_once $tab . '.php';
 
 		#--- This is where any common non-php includes for the admin code goes ---#
-		include(BU_ADMIN_DIR . '/admin-styles.css');
+		include BU_ADMIN_DIR . '/admin-styles.css';
 	}
 	
 	/*
@@ -141,7 +141,7 @@ EOD;
 
 		foreach ( $this->plugin_settings_tabs as $tab_key => $tab_caption ) {
 
-			$active = "";
+			$active = '';
 
 			# Determine if tab_key is the current tab. If true, mark as active 
 			# so the contents of the tab will be displayed
@@ -150,7 +150,7 @@ EOD;
 			}
 			
 			#Build the tab
-			echo sprintf($tab_html_format, $active, $this->plugin_url_slug, $tab_key, $tab_caption);
+			echo sprintf( $tab_html_format, $active, $this->plugin_url_slug, $tab_key, $tab_caption );
 		}
 ?>	
 			</h2>
@@ -165,10 +165,10 @@ EOD;
      */
 	private function get_current_tab() {
 	
-		$tab = BU_Functions::get_GET_string('tab');
+		$tab = BU_Functions::get_GET_string( 'tab' );
 		
 		# If no tab is set, use the default tab
-		if ($tab == "") {
+		if ( $tab == '' ) {
 			$tab = $this->create_user_admin_key;
 		}
 		

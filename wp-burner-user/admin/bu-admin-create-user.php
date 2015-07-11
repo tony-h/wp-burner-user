@@ -85,18 +85,18 @@ function bu_add_burner_user() {
 
 	global $bu_message;
 
-	$username = trim (BU_Functions::get_POST_string( 'user_login' ) );
-	$email = trim (BU_Functions::get_POST_string( 'email' ));
-	$password = trim (BU_Functions::get_POST_string( 'password' ) );
-	$first_name = trim (BU_Functions::get_POST_string( 'first_name' ) );
-	$last_name = trim (BU_Functions::get_POST_string( 'last_name' ) );
+	$username = trim( BU_Functions::get_POST_string( 'user_login' ) );
+	$email = trim( BU_Functions::get_POST_string( 'email' ));
+	$password = trim( BU_Functions::get_POST_string( 'password' ) );
+	$first_name = trim( BU_Functions::get_POST_string( 'first_name' ) );
+	$last_name = trim( BU_Functions::get_POST_string( 'last_name' ) );
 	
 	# If no user, generate a random user name
 	if ( $username == '' ) {
 		$username = wp_generate_password( $length=12, $include_standard_special_chars=false );
 	}
 	
-	# If email address, use username@example.com
+	# If no email address, use username@example.com
 	if ( $email == '' ) {
 		$email = $username . '@example.com';
 	}
@@ -108,7 +108,7 @@ function bu_add_burner_user() {
 	if ( !$user_id and email_exists( $email ) == false ) {
 
 		# If password is blank, create a random password
-		if ($password == '') {
+		if ( $password == '' ) {
 			$password = wp_generate_password( $length=12, $include_standard_special_chars=false );
 		}
 

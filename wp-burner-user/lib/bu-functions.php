@@ -45,7 +45,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	 */
 	public static function get_POST_string($name) {
 
-		$post_string = "";
+		$post_string = '';
 		
 		# If the POST data contains data, use it. Otherwise, return an empty array
 		if (isset($_POST[$name]) && $_POST[$name] != "") {
@@ -65,7 +65,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	 */
 	public static function get_GET_string($name) {
 
-		$get_string = "";
+		$get_string = '';
 		
 		# If the POST data contains data, use it. Otherwise, return an empty array
 		if (isset($_GET[$name]) && $_GET[$name] != "") {

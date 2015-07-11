@@ -16,4 +16,5 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 <div class="wrap">
 	<h2>WP Burner User - Help</h2>
+	<p>If you need extra help or would like submit a feature request, please do so in the <a href="https://wordpress.org/support/plugin/wp-burner-user" target="_blank">WP Burner User plugin support page</a>.<p>
 </div>

@@ -66,9 +66,9 @@ Class BU_Message {
 	 * @param string $message Message to display
 	 * @param string $type Type of message to display
 	*/
-	function print_message($message, $type = "") {
+	function print_message( $message, $type = "" ) {
 		
-		if ($type == "") {
+		if ( $type == "" ) {
 			$type = $this->information;
 		}
 	

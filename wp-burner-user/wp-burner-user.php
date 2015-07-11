@@ -4,7 +4,7 @@
  * Description: WP Burner User allows a WP admin to create an anonymous account with randomly generated data
  * Version: 	0.1.0
  * Author: 		Tony Hetrick
- * Author URI:	http://www.tonyhetrick.com
+ * Author URI:	http://dev.tonyhetrick.com
  * License: 	GNU General Public License (GPL) version 2
  * License URI: https://www.gnu.org/licenses/gpl.html
  */
